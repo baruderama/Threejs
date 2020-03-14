@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { display: block; }
+		</style>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+		<script>
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+var geometry = new THREE.BoxGeometry(1,5,1);
+var geometry2 = new THREE.BoxGeometry(1,1,1);
+var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+var material2 = new THREE.MeshBasicMaterial( { color: 0x0033ff } );
+var material3 = new THREE.MeshBasicMaterial( { color: 0x006633 } );
+var cube = new THREE.Mesh( geometry, material );
+var cube2 = new THREE.Mesh(geometry,material2);
+var cube3 = new THREE.Mesh(geometry2,material3);
+var contenedor= new THREE.Object3D();
+var contenedor2=new THREE.Object3D();
+var contenedor3=new THREE.Object3D();
+
+cube.position.y=-2.5;
+contenedor3.add(cube3);
+contenedor3.position.y=7;
+contenedor3.position.x=5;
+
+contenedor.add(cube);
+cube2.position.y=-2.5;
+contenedor2.add(cube2);
+contenedor2.position.y=-5;
+contenedor.add(contenedor2);
+
+scene.add( contenedor );
+scene.add(contenedor3);
+
+camera.position.z = 20;
+t=0;
+
+//renderer.render( scene, camera );
+
+function animate() {
+	requestAnimationFrame( animate );
+	renderer.render( scene, camera );
+    //t+=0.05;
+    
+    contenedor.rotation.z = (Math.PI*3)/4;
+    //contenedor2.rotation.z = Math.cos(t)+45;			
+}
+animate();
+
+
+
+		</script>
+	</body>
+</html>
